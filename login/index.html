@@ -124,9 +124,12 @@
     checkCookie('이름');
     
     if (LoginState === true) {
-      alert('이전 기록으로 로그인')
+      document.getElementById('Input').style.display = 'none';
+      const p01 = document.getElementById('welcome');
+      p01.innerHTML = name + " 로그인 완료";
+      document.getElementById('LogoutBtn').style.display = '';
     } else {
-      console.log('노쿠키');
+      console.log('no_cookie');
     }
 
     //로그인 시스템
@@ -162,7 +165,7 @@
 
     //로그아웃
     function Logout() {
-      setCookie('이름', '', 1);
+      setCookie('이름', '', 10);
       LoginState = false;
       location.reload();
     }
