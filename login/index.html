@@ -123,8 +123,13 @@
     }
     checkCookie('이름');
     
-    //로그인 시스템
+    if (LoginState === true) {
+      alert('이전 기록으로 로그인')
+    } else {
+      console.log('노쿠키');
+    }
 
+    //로그인 시스템
     function Login() {
       const dbref = ref(db);
       var input_name = document.getElementById('name');
@@ -144,7 +149,6 @@
             const p01 = document.getElementById('welcome');
             p01.innerHTML = name + " 로그인 완료";
             document.getElementById('LogoutBtn').style.display = '';
-            alert(name)
             setCookie('이름', name, 2);
           }
         }).catch((error)=>{
@@ -155,6 +159,14 @@
       }
     }
     confirm_btn.addEventListener('click', Login);
+
+    //로그아웃
+    function Logout() {
+      setCookie('이름', '', 1);
+      LoginState = false;
+      location.reload();
+    }
+    LogoutBtn.addEventListener('click', Logout)
 
   </script>
 </body>
