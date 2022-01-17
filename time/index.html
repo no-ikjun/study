@@ -155,8 +155,8 @@
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
       var name = value[2];
-      set(ref(db, "record/"+ name ),{
-        start_time: start_time,
+      set(ref(db, "record/"+ name + "start/"),{
+        start_time,
       })
       .then(()=>{
         alert("측정 시작")
@@ -181,8 +181,8 @@
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
       var name = value[2];
-      set(ref(db, "record/"+ name ),{
-        stop_time: stop_time,
+      set(ref(db, "record/"+ name + "stop/"),{
+        stop_time,
       })
       .then(()=>{
         alert("측정 종료")
