@@ -93,32 +93,20 @@
     }
     document.getElementById('LoginBtn').style.display = 'none';
 
-    function setCookie(key, value, expiredays) {
-      var todayDate = new Date();
-      alert(todayDate);
-      todayDate.setDate(todayDate.getDate() + expiredays);
-      document.cookie = key + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
-      console.log(document.cookie)
+    function setCookie(name, value, exp) {
+      var date = new Date(); date.setTime(date.getTime() + exp*24*60*60*1000); 
+      document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
       alert('완료')
     };
-    function getCookie(key) { 
-      var result = null;
-      var cookie = document.cookie.split(';');
-      cookie.some(function(item) {
-        item = item.replace(' ', '');
-        var dic = item.split('=');
-        if (key === dic[0]) {
-          result = dic[1];
-          alert(result);
-          return true;
-        }
-      });
-      return result;
-      alert(result);
-      console.log(result);
+
+    function getCookie(name) {
+      var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      return value? value[2] : null;
+      console.log(value);
     };
+
     var name = '이름';
-    setCookie(name, '최익준', 2);
+    setCookie(name, 'ikjunchoi', 2);
     getCookie(name);
     
 
