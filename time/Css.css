@@ -85,9 +85,16 @@ body {
   border: none;
 } .button {
   text-align: center;
-} .push-button:first-child{
+} .start-button{
+  transition: 0.2s;
   background-color: red;
-} .push-button {
+  font-size: 50px;
+  padding: 30px;
+  font-family: "maple";
+  margin: 30px;
+  width: 300px;
+  display: relative;
+} .stop-button {
   transition: 0.2s;
   background-color: blue;
   font-size: 50px;
@@ -96,7 +103,11 @@ body {
   margin: 30px;
   width: 300px;
   display: relative;
-} .push-button:hover {
+} .start-button:hover {
+  transform: scale(1.1);
+  transition: 0.2s;
+  cursor: pointer;
+} .stop-button:hover {
   transform: scale(1.1);
   transition: 0.2s;
   cursor: pointer;
