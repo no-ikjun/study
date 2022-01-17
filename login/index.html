@@ -111,7 +111,6 @@
     function checkCookie(name) {
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + name +'=([^;]*)(;|$)');
-      console.log(value);
       if (value === null) {
         LoginState = false;
       } else if (value[2] === ""){
@@ -124,7 +123,7 @@
     checkCookie('이름');
     
     if (LoginState === true) {
-      var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      var value = document.cookie.match('(^|;) ?' + '이름' + '=([^;]*)(;|$)');
       var name = value[2];
       document.getElementById('Input').style.display = 'none';
       const p01 = document.getElementById('welcome');
