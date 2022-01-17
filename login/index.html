@@ -69,6 +69,7 @@
 
     document.getElementById('LogoutBtn').style.display = 'none';
     document.getElementById('LoginBtn').style.display = 'none';
+    var LoginState = false;
 
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
@@ -110,8 +111,12 @@
     function checkCookie(name) {
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + name +'=([^;]*)(;|$)');
-      return value ? true : false;
-      console.log(value);
+      if (value[2] === "") {
+        LoginState = false;
+      } else {
+        LoginState = true;
+      }
+      console.log(LoginState);
     }
     checkCookie('이름');
     
