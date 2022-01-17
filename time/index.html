@@ -57,12 +57,21 @@
     </span>
   </div>
   <div class="button">
-    <input class="push-button" id="PushBtn" type="button" value="START">
+    <input class="push-button" id="StartBtn" type="button" value="START">
+    <input class="push-button" id="StopBtn" type="button" value="STOP">
     <p>버튼을 누르면 시간 측정이 시작됩니다.</p>
   </div>
+  <center>
+    <div id='box' class="box">
+	  	<div id='timerBox' class="timerBox">
+	  		<div id="time" class="time">00:00:00</div>
+	  	</div>
+	  </div>
+  </center>
   <script type="module">
     var LoginState = false;
     document.getElementById('LogoutBtn').style.display = 'none';
+    document.getElementById('StopBtn').style.display = 'none';
     //로그인 여부 확인
     function checkCookie(name) {
       let cookies = document.cookie.split(';');
@@ -113,22 +122,7 @@
 
     const db = getDatabase();
 
-    function nice(){
-      var now = new Date();
-      set(ref(db, "time/"+ (now.getMonth()+1) + "/" + now.getDate()),{
-        최익준: 0,
-        민정윤: 0,
-        김지우: 0,
-        남준우: 0,
-        지민우: 0,
-      })
-      .then(()=>{
-        alert("나이스");
-      })
-      .catch((error)=>{
-        alert("오류발생");
-      });
-    }
+
     function goToLogin(){
       location.href='../login/index.html';
     }
@@ -158,7 +152,6 @@
         시간: hour,
         분: minute,
       }
-      console.log(start_time);
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
       var name = value[2];
@@ -166,13 +159,68 @@
         start: start_time,
       })
       .then(()=>{
-        alert("나이스");
+        alert("측정 시작")
       })
       .catch((error)=>{
         alert("오류발생");
       });
+      document.getElementById('StopBtn').style.display = '';
+      document.getElementById('StartBtn').style.display = 'none';
     }
-    StartCount();
+    StartBtn.addEventListener('click', StartCount);
+    function StopCount() {
+      var now = new Date();
+      var date = now.getDate();
+      var hour = now.getHours();
+      var minute = now.getMinutes();
+      var stop_time = {
+        날짜: date,
+        시간: hour,
+        분: minute,
+      }
+      let cookies = document.cookie.split(';');
+      let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
+      var name = value[2];
+      set(ref(db, "record/"+ name),{
+        stop: stop_time,
+      })
+      .then(()=>{
+        alert("측정 종료")
+      })
+      .catch((error)=>{
+        alert("오류발생");
+      });
+      document.getElementById('StopBtn').style.display = 'none';
+      document.getElementById('StartBtn').style.display = '';
+    }
+    
+    function Count() {
+      StopCount();
+      let cookies = document.cookie.split(';');
+      let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
+      var name = value[2];
+      const dbref = ref(db);
+      get(child(dbref, "record/" + name + "/start/")).then((snapshot)=>{
+        var start_date = snapshot.val().날짜;
+        var start_hour = snapshot.val().시간;
+        var start_minute = snapshot.val().분;
+      });
+      get(child(dbref, "record/" + name + "/stop/")).then((snapshot)=>{
+        var stop_date = snapshot.val().날짜;
+        var stop_hour = snapshot.val().시간;
+        var stop_minute = snapshot.val().분;
+      });
+
+      var date = stop_date - start_date;
+      if (date===1) {
+        var time = stop_hour*60 + stop_minute + (23-start_hour) + (60-start_minute);
+      } else {
+        var time = (stop_hour-stop_hour)*60 + (stop_minute-start_minute);
+      }
+      alert("총 공부 시간은 " + time + "분 입니다.");
+    }
+    StopBtn.addEventListener('click', Count);
+
   </script>
 </body>
 </html>
