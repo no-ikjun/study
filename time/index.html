@@ -155,8 +155,8 @@
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
       var name = value[2];
-      set(ref(db, "record/"+ name),{
-        start: start_time,
+      set(ref(db, "record/"+ name + "start/"),{
+        start_time,
       })
       .then(()=>{
         alert("측정 시작")
@@ -181,8 +181,8 @@
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
       var name = value[2];
-      set(ref(db, "record/"+ name),{
-        stop: stop_time,
+      set(ref(db, "record/"+ name + "/stop/"),{
+        stop_time,
       })
       .then(()=>{
         alert("측정 종료")
@@ -204,20 +204,19 @@
         var start_date = snapshot.val().날짜;
         var start_hour = snapshot.val().시간;
         var start_minute = snapshot.val().분;
+        get(child(dbref, "record/" + name + "/stop/")).then((snapshot)=>{
+          var stop_date = snapshot.val().날짜;
+          var stop_hour = snapshot.val().시간;
+          var stop_minute = snapshot.val().분;
+          var date = stop_date - start_date;
+          if (date===1) {
+            var time = stop_hour*60 + stop_minute + (23-start_hour) + (60-start_minute);
+          } else {
+            var time = (stop_hour-stop_hour)*60 + (stop_minute-start_minute);
+          }
+          alert("총 공부 시간은 " + time + "분 입니다.");
+        });
       });
-      get(child(dbref, "record/" + name + "/stop/")).then((snapshot)=>{
-        var stop_date = snapshot.val().날짜;
-        var stop_hour = snapshot.val().시간;
-        var stop_minute = snapshot.val().분;
-      });
-
-      var date = stop_date - start_date;
-      if (date===1) {
-        var time = stop_hour*60 + stop_minute + (23-start_hour) + (60-start_minute);
-      } else {
-        var time = (stop_hour-stop_hour)*60 + (stop_minute-start_minute);
-      }
-      alert("총 공부 시간은 " + time + "분 입니다.");
     }
     StopBtn.addEventListener('click', Count);
 
