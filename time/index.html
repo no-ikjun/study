@@ -200,11 +200,11 @@
       let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
       var name = value[2];
       const dbref = ref(db);
-      get(child(dbref, "record/" + name + "/"+"start/")).then((snapshot)=>{
+      get(child(dbref, "record/" + name + "/"+"start/start_time/")).then((snapshot)=>{
         var start_date = snapshot.val().날짜;
         var start_hour = snapshot.val().시간;
         var start_minute = snapshot.val().분;
-        get(child(dbref, "record/" + name + "/"+"stop/")).then((snapshot)=>{
+        get(child(dbref, "record/" + name + "/"+"stop/stop_time")).then((snapshot)=>{
           var stop_date = snapshot.val().날짜;
           var stop_hour = snapshot.val().시간;
           var stop_minute = snapshot.val().분;
