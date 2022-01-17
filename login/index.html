@@ -111,8 +111,8 @@
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + name +'=([^;]*)(;|$)');
       return value ? true : false;
+      console.log(value);
     }
-    console.log(value);
     checkCookie('이름');
     
     //로그인 시스템
