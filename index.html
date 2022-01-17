@@ -49,6 +49,32 @@
     </span>
   </div>
   <script type="module">
+    var LoginState = false;
+    document.getElementById('LogoutBtn').style.display = 'none';
+    //로그인 여부 확인
+    function checkCookie(name) {
+      let cookies = document.cookie.split(';');
+      let value = document.cookie.match('(^|;) ?' + name +'=([^;]*)(;|$)');
+      if (value === null) {
+        LoginState = false;
+      } else if (value[2] === ""){
+        LoginState = false;
+      } else {
+        LoginState = true;
+      }
+      console.log(LoginState);
+    }
+    checkCookie('이름');
+    
+    if (LoginState === true) {
+      var value = document.cookie.match('(^|;) ?' + '이름' + '=([^;]*)(;|$)');
+      var name = value[2];
+      document.getElementById('LoginBtn').value = name;
+      document.getElementById('LogoutBtn').style.display = '';
+    } else {
+      console.log('no_cookie');
+    }
+
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
     // TODO: Add SDKs for Firebase products that you want to use
@@ -87,7 +113,6 @@
         alert("오류발생");
       });
     }
-    document.getElementById('LogoutBtn').style.display = 'none';
     function goToLogin(){
       location.href='login/index.html';
     }
