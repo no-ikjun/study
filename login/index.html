@@ -94,20 +94,19 @@
     document.getElementById('LoginBtn').style.display = 'none';
 
     function setCookie(name, value, exp) {
-      var date = new Date(); date.setTime(date.getTime() + exp*24*60*60*1000); 
+      var date = new Date(); date.setTime(date.getTime() + exp*24*60*60*1000);
+      console.log(date);
       document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
-      alert('완료')
     };
 
     function getCookie(name) {
       var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-      return value? value[2] : null;
-      console.log(value);
+      console.log(value[2]);
     };
 
-    var name = '이름';
-    setCookie(name, 'ikjunchoi', 2);
-    getCookie(name);
+    var nice = '이름';
+    setCookie(nice, '최익준', 2);
+    getCookie(nice);
     
 
   </script>
