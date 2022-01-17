@@ -57,8 +57,8 @@
     </span>
   </div>
   <div class="button">
-    <input class="push-button" id="StartBtn" type="button" value="START">
-    <input class="push-button" id="StopBtn" type="button" value="STOP">
+    <input class="start-button" id="StartBtn" type="button" value="START">
+    <input class="stop-button" id="StopBtn" type="button" value="STOP">
     <p>버튼을 누르면 시간 측정이 시작됩니다.</p>
   </div>
   <center>
@@ -93,9 +93,9 @@
       document.getElementById('LoginBtn').value = name;
       document.getElementById('LogoutBtn').style.display = '';
     } else {
-      //alert("로그인 후 이용하세요")
+      alert("로그인 후 이용하세요")
       console.log('no_cookie');
-      //location.href = "../index.html"
+      location.href = "../index.html"
     }
 
     // Import the functions you need from the SDKs you need
@@ -155,7 +155,7 @@
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
       var name = value[2];
-      set(ref(db, "record/"+ name + "start/"),{
+      set(ref(db, "record/"+ name ),{
         start_time,
       })
       .then(()=>{
@@ -181,7 +181,7 @@
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
       var name = value[2];
-      set(ref(db, "record/"+ name + "/stop/"),{
+      set(ref(db, "record/"+ name ),{
         stop_time,
       })
       .then(()=>{
@@ -200,11 +200,11 @@
       let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
       var name = value[2];
       const dbref = ref(db);
-      get(child(dbref, "record/" + name + "/start/")).then((snapshot)=>{
+      get(child(dbref, "record/" + name + "/"+"start/")).then((snapshot)=>{
         var start_date = snapshot.val().날짜;
         var start_hour = snapshot.val().시간;
         var start_minute = snapshot.val().분;
-        get(child(dbref, "record/" + name + "/stop/")).then((snapshot)=>{
+        get(child(dbref, "record/" + name + "/"+"stop/")).then((snapshot)=>{
           var stop_date = snapshot.val().날짜;
           var stop_hour = snapshot.val().시간;
           var stop_minute = snapshot.val().분;
