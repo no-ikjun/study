@@ -124,6 +124,8 @@
     checkCookie('이름');
     
     if (LoginState === true) {
+      var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+      var name = value[2];
       document.getElementById('Input').style.display = 'none';
       const p01 = document.getElementById('welcome');
       p01.innerHTML = name + " 로그인 완료";
