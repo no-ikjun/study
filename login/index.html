@@ -111,7 +111,10 @@
     function checkCookie(name) {
       let cookies = document.cookie.split(';');
       let value = document.cookie.match('(^|;) ?' + name +'=([^;]*)(;|$)');
-      if (value[2] === "") {
+      console.log(value);
+      if (value === null) {
+        LoginState = false;
+      } else if (value[2] === ""){
         LoginState = false;
       } else {
         LoginState = true;
