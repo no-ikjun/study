@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>공부해라</title>
+  <link rel="shortcut icon" href="../image/shortcut.png">
+  <link rel="stylesheet" href="CSS.css">
+</head>
+<body>
+  <a href="#">
+    <img class="logo" width="100px" src="../image/logo.png" alt="로고">
+  </a>
+  <div class="bar">
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown">공부하기</a>
+      <div class="dropdown-content">
+        <a href="time/index.html">공부시간</a>
+        <a href="competition/index.html">경쟁</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown">계획</a>
+      <div class="dropdown-content">
+        <a href="plan/index.html">계획세우기</a>
+        <a href="plan/check.html">점검하기</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown">바로가기</a>
+      <div class="dropdown-content">
+        <a href="https://classroom.google.com/u/0/c/Mjg4OTQyOTg3NjY3">미트주소</a>
+        <a href="https://classroom.google.com/u/">클래스룸</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown">놀기</a>
+      <div class="dropdown-content">
+        <a href="https://www.youtube.com/">YouTube</a>
+        <a href="https://www.netflix.com/">NETFLIX</a>
+      </div>
+    </div>
+    <span class="dropdown-btn">
+      <input id="LoginBtn" class="login-btn" type="button" value="Login">
+    </span>
+  </div>
+  <center>
+    <div class="Input">
+        <h1 class="Mess">로그인</h1>
+        <p>
+            <a class="BoxText">이름</a><br>
+            <input class="text_box" id="name" type="text" placeholder="이름을 입력하세요"></input>
+        </p>
+        <p>
+            <a class="BoxText">학번</a><br>
+            <input class="text_box" id="password" placeholder="비밀번호를 입력하세요" type="password"></input>
+        </p>
+        <div class="LoginBtn">
+            <input type="button" class="confirm_btn" id="confirm_btn", value="확인">
+        </div>
+    </div>
+</center>
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyChMwnnpUY3yf1jnGEvVql7bJ6Qs8-KTb8",
+      authDomain: "study-43c4b.firebaseapp.com",
+      databaseURL: "https://study-43c4b-default-rtdb.firebaseio.com",
+      projectId: "study-43c4b",
+      storageBucket: "study-43c4b.appspot.com",
+      messagingSenderId: "1081959961664",
+      appId: "1:1081959961664:web:004a4d6c86656db8417ba5",
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    import {getDatabase, ref, set, child, remove, get} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
+
+    const db = getDatabase();
+
+    function goToLogin(){
+      location.href='login/index.html';
+    }
+    document.getElementById('LoginBtn').style.display = 'none';
+
+    function setCookie(key, value, expiredays) {
+      var todayDate = new Date();
+      todayDate.setDate(todayDate.getDate() + expiredays);
+      document.cookie = key + "=" + escape(value) + "; path=/; expires=" + todayDate.toGMTString() + ";";
+      alert('완료')
+    };
+    function getCookie(key) { 
+      var result = null;
+      var cookie = document.cookie.split(';');
+      cookie.some(function(item) {
+        item = item.replace(' ', '');
+        var dic = item.split('=');
+        if (key === dic[0]) {
+          result = dic[1];
+          alert(result);
+          return true;
+        }
+      });
+      return result;
+      alert('result');
+    };
+    
+    setCookie('이름', '최익준', 2);
+    getCookie('이름');
+    
+
+  </script>
+</body>
+</html>
