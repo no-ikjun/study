@@ -45,10 +45,11 @@
     </div>
     <span class="dropdown-btn">
       <input id="LoginBtn" class="login-btn" type="button" value="Login">
+      <input id="LogoutBtn" class="logout-btn" type="button" value="Logout">
     </span>
   </div>
   <center>
-    <div class="Input">
+    <div class="Input" id="Input">
         <h1 class="Mess">로그인</h1>
         <p>
             <a class="BoxText">이름</a><br>
@@ -62,8 +63,13 @@
             <input type="button" class="confirm_btn" id="confirm_btn", value="확인">
         </div>
     </div>
+    <h1 class="welcome" id="welcome"></h1>
 </center>
   <script type="module">
+
+    document.getElementById('LogoutBtn').style.display = 'none';
+    document.getElementById('LoginBtn').style.display = 'none';
+
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
     // TODO: Add SDKs for Firebase products that you want to use
@@ -80,7 +86,7 @@
       messagingSenderId: "1081959961664",
       appId: "1:1081959961664:web:004a4d6c86656db8417ba5",
     };
-  
+
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
 
@@ -88,27 +94,59 @@
 
     const db = getDatabase();
 
-    function goToLogin(){
-      location.href='login/index.html';
-    }
-    document.getElementById('LoginBtn').style.display = 'none';
-
     function setCookie(name, value, exp) {
-      var date = new Date(); date.setTime(date.getTime() + exp*24*60*60*1000); 
+      var date = new Date(); date.setTime(date.getTime() + exp*24*60*60*1000);
+      console.log(date);
       document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
-      alert('완료')
     };
 
     function getCookie(name) {
       var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-      return value? value[2] : null;
-      console.log(value);
+      console.log(value[2]);
     };
 
-    var name = '이름';
-    setCookie(name, 'ikjunchoi', 2);
-    getCookie(name);
+    //getCookie('이름');
+
+    function checkCookie(name) {
+      let cookies = document.cookie.split(';');
+      let value = document.cookie.match('(^|;) ?' + name +'=([^;]*)(;|$)');
+      return value ? true : false;
+    }
+    console.log(value);
+    checkCookie('이름');
     
+    //로그인 시스템
+
+    function Login() {
+      const dbref = ref(db);
+      var input_name = document.getElementById('name');
+      var input_password = document.getElementById('password');
+      if (input_name.value==="") {
+        alert("모든 값을 입력하세요");
+      } else if (input_password.value==="") {
+        alert("모든 값을 입력하세요");
+      } else {
+        var name = input_name.value;
+        get(child(dbref, "member/"+name)).then((snapshot)=>{
+          let password = snapshot.val().비번;
+          if (password !== input_password.value) {
+            alert('비밀번호가 맞지 않습니다.');
+          } else {
+            document.getElementById('Input').style.display = 'none';
+            const p01 = document.getElementById('welcome');
+            p01.innerHTML = name + " 로그인 완료";
+            document.getElementById('LogoutBtn').style.display = '';
+            alert(name)
+            setCookie('이름', name, 2);
+          }
+        }).catch((error)=>{
+          alert("등록된 이름을 찾을 수 없습니다.");
+          document.getElementById('name').value = null;
+          document.getElementById('password').value = null;
+        })
+      }
+    }
+    confirm_btn.addEventListener('click', Login);
 
   </script>
 </body>
