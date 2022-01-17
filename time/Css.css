@@ -85,9 +85,11 @@ body {
   border: none;
 } .button {
   text-align: center;
+} .push-button:first-child{
+  background-color: red;
 } .push-button {
   transition: 0.2s;
-  background-color: red;
+  background-color: blue;
   font-size: 50px;
   padding: 30px;
   font-family: "maple";
@@ -98,4 +100,17 @@ body {
   transform: scale(1.1);
   transition: 0.2s;
   cursor: pointer;
-} 
+} .box{
+  padding-top: 10px;
+  width: 200px;
+  height: 200px;
+} .timerBox{
+  text-align: center;
+  width: 200px;
+  outline: 2px solid black;
+} .timerBox .time{
+  font-size: 30pt;
+  color: #4C4C4C;
+  text-align: center;
+  font-family: sans-serif;
+}
