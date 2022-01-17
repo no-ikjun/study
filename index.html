@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="Css.css">
 </head>
 <body>
-  <a href="#">
+  <a href="https://no-ikjun.github.io/study/">
     <img class="logo" width="100px" src="image/logo.png" alt="로고">
   </a>
   <div class="bar">
@@ -37,6 +37,14 @@
     </div>
     <span class="blank"></span>
     <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown">상벌점</a>
+      <div class="dropdown-content">
+        <a href="score/index.html">점수확인</a>
+        <a href="score/give.html">정산</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
       <a class="dropbtn" data-toggle="dropdown">놀기</a>
       <div class="dropdown-content">
         <a href="https://www.youtube.com/">YouTube</a>
@@ -48,6 +56,7 @@
       <input id="LogoutBtn" class="logout-btn" type="button" value="Logout">
     </span>
   </div>
+  <h1>홈 화면 입니다.</h1>
   <script type="module">
     var LoginState = false;
     document.getElementById('LogoutBtn').style.display = 'none';
@@ -100,11 +109,13 @@
     const db = getDatabase();
 
     function nice(){
-      set(ref(db, "최익준/"),{
-        학교: '전남과학고',
-        나이: 19,
-        이름: '최익준',
-        성별: '남',
+      var now = new Date();
+      set(ref(db, "record/"),{
+        최익준: 0,
+        민정윤: 0,
+        김지우: 0,
+        남준우: 0,
+        지민우: 0,
       })
       .then(()=>{
         alert("나이스");
@@ -117,6 +128,19 @@
       location.href='login/index.html';
     }
     LoginBtn.addEventListener('click', goToLogin);
+
+    //로그아웃
+    function setCookie(name, value, exp) {
+      var date = new Date(); date.setTime(date.getTime() + exp*24*60*60*1000);
+      console.log(date);
+      document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    };
+    function Logout() {
+      setCookie('이름', '', 2);
+      LoginState = false;
+      location.reload();
+    }
+    LogoutBtn.addEventListener('click', Logout)
   </script>
 </body>
 </html>
