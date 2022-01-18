@@ -177,6 +177,24 @@
       });
     }
     ReadTime();
+
+    function ShowAll() {
+      var now = new Date();
+      var month = now.getMonth();
+      var date = now.getDate();
+      const dbref = ref(db);
+      let cookies = document.cookie.split(';');
+      let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
+      var name = value[2];
+      get(child(dbref, "time/" + (month+1) + "/" + (date-1) + "/")).then((snapshot)=>{
+        var last_day = snapshot.val();
+        console.log(last_day);
+        var last_hour = parseInt(last_day/60);
+        var last_minute = last_day%60;
+        //const p01 = document.getElementById('lastday_time');
+        //p01.innerHTML = "어제는 " + last_hour + "시간 " + last_minute + "분 공부했습니다.";
+      });
+    }
   </script>
 </body>
 </html>
