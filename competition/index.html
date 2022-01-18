@@ -196,19 +196,20 @@
       get(child(dbref, "time/" + (month+1) + "/" + (date-1) + "/")).then((snapshot)=>{
         var last_day = snapshot.val();
         console.log(last_day);
-        var last_hour = parseInt(last_day/60);
-        var last_minute = last_day%60;
+        var lastday_me = last_day[name]['time'];
+        var last_hour = parseInt(lastday_me/60);
+        var last_minute = lastday_me%60;
         const p01 = document.getElementById('lastday_time');
         p01.innerHTML = "어제는 " + last_hour + "시간 " + last_minute + "분 공부했습니다.";
         var kim = document.getElementById('kim');
-        var nam = document.getElementById('nam');
-        var min = document.getElementById('min');
-        var ji = document.getElementById('ji');
-        var choi = document.getElementById('choi');
         kim.innerText += " " + last_day['김지우']['time'] + "분";
+        var nam = document.getElementById('nam');
         nam.innerText += " " + last_day['남준우']['time'] + "분"; 
-        min.innerText += " " + last_day['민정윤']['time'] + "분"; 
+        var min = document.getElementById('min');
+        min.innerText += " " + last_day['민정윤']['time'] + "분";
+        var ji = document.getElementById('ji');
         ji.innerText += " " + last_day['지민우']['time'] + "분"; 
+        var choi = document.getElementById('choi'); 
         choi.innerText += " " + last_day['최익준']['time'] + "분"; 
       });
     }
