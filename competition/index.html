@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>공부해라</title>
+  <link rel="shortcut icon" href="../image/shortcut.png">
+  <link rel="stylesheet" href="Css.css">
+</head>
+<body>
+  <a href="https://no-ikjun.github.io/study/">
+    <img class="logo" width="100px" src="../image/logo.png" alt="로고">
+  </a>
+  <div class="bar">
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">공부하기</a>
+      <div class="dropdown-content">
+        <a href="index.html">공부시간</a>
+        <a href="../competition/index.html">경쟁</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">계획</a>
+      <div class="dropdown-content">
+        <a href="../plan/index.html">계획세우기</a>
+        <a href="../plan/check.html">점검하기</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">바로가기</a>
+      <div class="dropdown-content">
+        <a href="https://classroom.google.com/u/0/c/Mjg4OTQyOTg3NjY3">미트주소</a>
+        <a href="https://classroom.google.com/u/">클래스룸</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">상벌점</a>
+      <div class="dropdown-content">
+        <a href="../score/index.html">점수확인</a>
+        <a href="../score/give.html">정산</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">놀기</a>
+      <div class="dropdown-content">
+        <a href="https://www.youtube.com/">YouTube</a>
+        <a href="https://www.netflix.com/">NETFLIX</a>
+      </div>
+    </div>
+    <span class="dropdown-btn">
+      <input id="LoginBtn" class="login-btn" type="button" value="Login">
+      <input id="LogoutBtn" class="logout-btn" type="button" value="Logout">
+    </span>
+  </div>
+  <div class="input">
+    <p class="notice">오늘 하루 공부 시간을 정직하게 입력해주세요.</p>
+    <p class="notice">단위는 '분'입니다. 숫자만 쓰세요.</p>
+    <p><input class="input-time" id="Time" type="text" placeholder="공부시간(분) 입력"></p>
+    <p><input class="submit" id="submitBtn" type="button" value="제출"></p>
+  </div>
+  <script type="module">
+    var LoginState = false;
+    document.getElementById('LogoutBtn').style.display = 'none';
+    //로그인 여부 확인
+    function checkCookie(name) {
+      let cookies = document.cookie.split(';');
+      let value = document.cookie.match('(^|;) ?' + name +'=([^;]*)(;|$)');
+      if (value === null) {
+        LoginState = false;
+      } else if (value[2] === ""){
+        LoginState = false;
+      } else {
+        LoginState = true;
+      }
+      console.log(LoginState);
+    }
+    checkCookie('이름');
+    
+    if (LoginState === true) {
+      var value = document.cookie.match('(^|;) ?' + '이름' + '=([^;]*)(;|$)');
+      var name = value[2];
+      document.getElementById('LoginBtn').value = name;
+      document.getElementById('LogoutBtn').style.display = '';
+    } else {
+      //alert("로그인 후 이용하세요")
+      console.log('no_cookie');
+      //location.href = "../login/index.html"
+    }
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyChMwnnpUY3yf1jnGEvVql7bJ6Qs8-KTb8",
+      authDomain: "study-43c4b.firebaseapp.com",
+      databaseURL: "https://study-43c4b-default-rtdb.firebaseio.com",
+      projectId: "study-43c4b",
+      storageBucket: "study-43c4b.appspot.com",
+      messagingSenderId: "1081959961664",
+      appId: "1:1081959961664:web:004a4d6c86656db8417ba5",
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    import {getDatabase, ref, set, child, remove, get} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
+
+    const db = getDatabase();
+
+
+    function goToLogin(){
+      location.href='../login/index.html';
+    }
+    LoginBtn.addEventListener('click', goToLogin);
+
+    //로그아웃
+    function setCookie(name, value, exp) {
+      var date = new Date(); date.setTime(date.getTime() + exp*24*60*60*1000);
+      console.log(date);
+      document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+    };
+    function Logout() {
+      setCookie('이름', '', 2);
+      LoginState = false;
+      location.reload();
+    }
+    LogoutBtn.addEventListener('click', Logout)
+
+    //시간 측정 및 데이터 전송
+    function SendTime() {
+      var input_time = document.getElementById('Time');
+      var time = input_time.value;
+      var now = new Date();
+      var month = now.getMonth();
+      var date = now.getDate();
+      let cookies = document.cookie.split(';');
+      let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
+      var name = value[2];
+      set(ref(db, "time/" + (month+1) + "/" + date + "/" + name),{
+        time,
+      })
+      .then(()=>{
+        console.log("start")
+      })
+      .catch((error)=>{
+        alert("오류발생");
+      });
+      alert("제출 완료")
+    }
+    submitBtn.addEventListener('click', StartCount);
+    function StopCount() {
+      var now = new Date();
+      var date = now.getDate();
+      var hour = now.getHours();
+      var minute = now.getMinutes();
+      var stop_time = {
+        날짜: date,
+        시간: hour,
+        분: minute,
+      }
+      let cookies = document.cookie.split(';');
+      let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
+      var name = value[2];
+      set(ref(db, "record/"+ name + "/" + "stop/"),{
+        stop_time,
+      })
+      .then(()=>{
+        console.log("stop")
+      })
+      .catch((error)=>{
+        alert("오류발생");
+      });
+    }
+    
+    function Count() {
+      StopCount();
+      let cookies = document.cookie.split(';');
+      let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
+      var name = value[2];
+      const dbref = ref(db);
+      get(child(dbref, "record/" + name + "/"+"start/start_time/")).then((snapshot)=>{
+        var start_date = snapshot.val().날짜;
+        var start_hour = snapshot.val().시간;
+        var start_minute = snapshot.val().분;
+        get(child(dbref, "record/" + name + "/"+"stop/stop_time")).then((snapshot)=>{
+          var stop_date = snapshot.val().날짜;
+          var stop_hour = snapshot.val().시간;
+          var stop_minute = snapshot.val().분;
+          var date = stop_date - start_date;
+          if (date===1) {
+            var time = stop_hour*60 + stop_minute + (23-start_hour) + (60-start_minute);
+          } else {
+            var time = (stop_hour-stop_hour)*60 + (stop_minute-start_minute);
+          }
+          var subject = document.getElementById('subject').value;
+          const p01 = document.getElementById('finish');
+          p01.innerHTML = subject + "공부 :  " + time + "분 완료.";
+        });
+      });
+      document.getElementById('subject').style.display = '';
+    }
+
+  </script>
+</body>
+</html>
