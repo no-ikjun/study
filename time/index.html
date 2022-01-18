@@ -162,6 +162,7 @@
       document.getElementById('subject').style.display = 'none';
     }
     StartBtn.addEventListener('click', StartCount);
+
     function StopCount() {
       var now = new Date();
       var date = now.getDate();
@@ -204,7 +205,7 @@
           if (date===1) {
             var time = stop_hour*60 + stop_minute + (23-start_hour) + (60-start_minute);
           } else {
-            var time = (stop_hour-stop_hour)*60 + (stop_minute-start_minute);
+            var time = (stop_hour-start_hour)*60 + (stop_minute-start_minute);
           }
           var subject = document.getElementById('subject').value;
           const p01 = document.getElementById('finish');
