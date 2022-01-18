@@ -16,7 +16,7 @@
       <a class="dropbtn" data-toggle="dropdown" onclick="">공부하기</a>
       <div class="dropdown-content">
         <a href="index.html">공부시간</a>
-        <a href="../competition/index.html">경쟁</a>
+        <a href="../competition/index.html">기록</a>
       </div>
     </div>
     <span class="blank"></span>
@@ -173,7 +173,7 @@
         var last_hour = parseInt(last_day/60);
         var last_minute = last_day%60;
         const p01 = document.getElementById('lastday_time');
-        p01.innerHTML = "어제는" + last_hour + "시간 " + last_minute + "분 공부했습니다.";
+        p01.innerHTML = "어제는 " + last_hour + "시간 " + last_minute + "분 공부했습니다.";
       });
     }
     ReadTime();
