@@ -161,6 +161,8 @@
             const p01 = document.getElementById('welcome');
             p01.innerHTML = name + " 로그인 완료";
             document.getElementById('LogoutBtn').style.display = '';
+            let myStorage = window.localStorage;
+            localStorage.setItem('이름', name);
             setCookie('이름', name, 2);
           }
         }).catch((error)=>{
@@ -184,6 +186,10 @@
       location.reload();
     }
     LogoutBtn.addEventListener('click', Logout)
+
+    //let myStorage = window.localStorage;
+    //var session = localStorage.getItem('이름');
+    //console.log(session);
 
   </script>
 </body>
