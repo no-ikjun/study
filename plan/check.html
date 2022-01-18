@@ -205,8 +205,13 @@
         input_time.value = time;
         var input_content = document.getElementById(number+'_content');
         input_content.value = content;
-        var input_checked = document.getElementById(name+'_check');
-        input_checked.checked = checked;
+        if (checked.value === "no") {
+          var input_checked = document.getElementById(name+'_check');
+          input_checked.checked = false;
+        } else {
+          var input_checked = document.getElementById(name+'_check');
+          input_checked.checked = true;
+        }
       });
     }
     function checkPlan() {
@@ -239,7 +244,12 @@
       var input_content = document.getElementById(number+'_content');
       var new_content = input_content.value;
       var input_checked = document.getElementById(name+'_check');
-      var new_checked = input_checked.checked;
+      var now_checked = input_checked.checked;
+      if (now_checked === true) {
+        var new_checked = "yes";
+      } else {
+        var new_checked = "no";
+      }
       let myStorage = window.localStorage;
       let name = localStorage.getItem('이름');
       var date_choice = document.getElementById('input_date');
