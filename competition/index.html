@@ -196,7 +196,6 @@
       var name = value[2];
       get(child(dbref, "time/" + (month+1) + "/" + (date-1) + "/")).then((snapshot)=>{
         var last_day = snapshot.val();
-        console.log(last_day);
         var lastday_me = last_day[name]['time'];
         var last_hour = parseInt(lastday_me/60);
         var last_minute = lastday_me%60;
