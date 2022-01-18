@@ -243,7 +243,7 @@
       var new_period = input_time.value;
       var input_content = document.getElementById(number+'_content');
       var new_content = input_content.value;
-      var input_checked = document.getElementById(name+'_check');
+      var input_checked = document.getElementById(number+'_check');
       var now_checked = input_checked.checked;
       if (now_checked === true) {
         var new_checked = "yes";
@@ -275,6 +275,8 @@
       updatePlan('fourth');
       updatePlan('fifth');
       updatePlan('sixth');
+      alert('계획 점검 완료');
+      location.reload();
     }
     FinishBtn.addEventListener('click', NewUpload);
   </script>
