@@ -65,6 +65,13 @@
   <div class="input">
     <h1 id="lastday_time" class="last-time"></h1>
   </div>
+  <div class="input">
+    <p id="kim" class="personal">김지우 : </p>
+    <p id="Nam" class="personal">남준우 : </p>
+    <p id="min" class="personal">민정윤 : </p>
+    <p id="ji" class="personal">지민우 : </p>
+    <p id="choi" class="personal">최익준 : </p>
+  </div>
   <script type="module">
     var LoginState = false;
     document.getElementById('LogoutBtn').style.display = 'none';
@@ -89,9 +96,9 @@
       document.getElementById('LoginBtn').value = name;
       document.getElementById('LogoutBtn').style.display = '';
     } else {
-      //alert("로그인 후 이용하세요")
+      alert("로그인 후 이용하세요")
       console.log('no_cookie');
-      //location.href = "../login/index.html"
+      location.href = "../login/index.html"
     }
 
     // Import the functions you need from the SDKs you need
@@ -191,8 +198,18 @@
         console.log(last_day);
         var last_hour = parseInt(last_day/60);
         var last_minute = last_day%60;
-        //const p01 = document.getElementById('lastday_time');
-        //p01.innerHTML = "어제는 " + last_hour + "시간 " + last_minute + "분 공부했습니다.";
+        const p01 = document.getElementById('lastday_time');
+        p01.innerHTML = "어제는 " + last_hour + "시간 " + last_minute + "분 공부했습니다.";
+        var kim = document.getElementById('kim');
+        var nam = document.getElementById('nam');
+        var min = document.getElementById('min');
+        var ji = document.getElementById('ji');
+        var choi = document.getElementById('choi');
+        kim.innerText += " " + last_day['김지우']['time'] + "분";
+        nam.innerText += " " + last_day['남준우']['time'] + "분"; 
+        min.innerText += " " + last_day['민정윤']['time'] + "분"; 
+        ji.innerText += " " + last_day['지민우']['time'] + "분"; 
+        choi.innerText += " " + last_day['최익준']['time'] + "분"; 
       });
     }
     ShowAll();
