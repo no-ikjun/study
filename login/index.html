@@ -65,7 +65,7 @@
         </p>
         <p>
             <a class="BoxText">학번</a><br>
-            <input class="text_box" id="password" placeholder="비밀번호를 입력하세요" type="password"></input>
+            <input class="text_box" id="password" placeholder="비밀번호를 입력하세요" type="password" onkeyup="if(window.event.keyCode==13){Login()}"></input>
         </p>
         <div class="LoginBtn">
             <input type="button" class="confirm_btn" id="confirm_btn", value="확인">
@@ -168,6 +168,11 @@
           document.getElementById('name').value = null;
           document.getElementById('password').value = null;
         })
+      }
+    }
+    function enterkey() {
+      if (window.event.keyCode === 13) {
+        Login();
       }
     }
     confirm_btn.addEventListener('click', Login);

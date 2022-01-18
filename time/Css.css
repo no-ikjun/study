@@ -111,17 +111,15 @@ body {
   transform: scale(1.1);
   transition: 0.2s;
   cursor: pointer;
-} .box{
-  padding-top: 10px;
-  width: 200px;
-  height: 200px;
-} .timerBox{
+} .subject {
+  font-size: 30px;
+  margin-top: 30px;
   text-align: center;
-  width: 200px;
-  outline: 2px solid black;
-} .timerBox .time{
-  font-size: 30pt;
-  color: #4C4C4C;
+} .subject::placeholder {
+  font-size: 20px;
   text-align: center;
-  font-family: sans-serif;
+} .finish {
+  font-size: 50px;
+  font-weight: 100;
+  margin-top: 100px;
 }
