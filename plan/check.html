@@ -257,8 +257,8 @@
       var choice_month = 1*dates[1];
       var choice_date = 1*dates[2];
       set(ref(db, "plan/"+choice_month+"/"+choice_date+"/"+name+"/"+count),{
-        "time": period,
-        "content": study_content,
+        "time": new_period,
+        "content": new_content,
         "checked": new_checked,
       })
       .then(()=>{
