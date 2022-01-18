@@ -134,7 +134,7 @@
     }
     LogoutBtn.addEventListener('click', Logout)
 
-    //시간 측정 및 데이터 전송
+    //시간 데이터 전송
     function SendTime() {
       var input_time = document.getElementById('Time');
       var time = 1*input_time.value;
@@ -156,56 +156,19 @@
       alert("제출 완료")
     }
     submitBtn.addEventListener('click', SendTime);
-    function StopCount() {
+
+    function ReadTime() {
       var now = new Date();
+      var month = now.getMonth();
       var date = now.getDate();
-      var hour = now.getHours();
-      var minute = now.getMinutes();
-      var stop_time = {
-        날짜: date,
-        시간: hour,
-        분: minute,
-      }
-      let cookies = document.cookie.split(';');
-      let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
-      var name = value[2];
-      set(ref(db, "record/"+ name + "/" + "stop/"),{
-        stop_time,
-      })
-      .then(()=>{
-        console.log("stop")
-      })
-      .catch((error)=>{
-        alert("오류발생");
-      });
-    }
-    
-    function Count() {
-      StopCount();
-      let cookies = document.cookie.split(';');
-      let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
-      var name = value[2];
       const dbref = ref(db);
-      get(child(dbref, "record/" + name + "/"+"start/start_time/")).then((snapshot)=>{
-        var start_date = snapshot.val().날짜;
-        var start_hour = snapshot.val().시간;
-        var start_minute = snapshot.val().분;
-        get(child(dbref, "record/" + name + "/"+"stop/stop_time")).then((snapshot)=>{
-          var stop_date = snapshot.val().날짜;
-          var stop_hour = snapshot.val().시간;
-          var stop_minute = snapshot.val().분;
-          var date = stop_date - start_date;
-          if (date===1) {
-            var time = stop_hour*60 + stop_minute + (23-start_hour) + (60-start_minute);
-          } else {
-            var time = (stop_hour-stop_hour)*60 + (stop_minute-start_minute);
-          }
-          var subject = document.getElementById('subject').value;
-          const p01 = document.getElementById('finish');
-          p01.innerHTML = subject + "공부 :  " + time + "분 완료.";
-        });
-      });
-      document.getElementById('subject').style.display = '';
+      let cookies = document.cookie.split(';');
+      let value = document.cookie.match('(^|;) ?' + '이름' +'=([^;]*)(;|$)');
+      var name = value[2];
+      get(child(dbref, "time/" + (month+1) + "/" + (date-1) + "/" + name + "/" + "time/")).then((snapshot)=>{
+        var last_day = snapshot.val();
+        console.log(last_day);
+      })
     }
 
   </script>
