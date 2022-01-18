@@ -57,21 +57,15 @@
     </span>
   </div>
   <div class="button">
+    <input class="subject" id="subject" type="text" placeholder="과목명을 입력하세요"><br>
     <input class="start-button" id="StartBtn" type="button" value="START">
     <input class="stop-button" id="StopBtn" type="button" value="STOP">
     <p>버튼을 누르면 시간 측정이 시작됩니다.</p>
+    <h1 class="finish" id="finish"></h1>
   </div>
-  <center>
-    <div id='box' class="box">
-	  	<div id='timerBox' class="timerBox">
-	  		<div id="time" class="time">00:00:00</div>
-	  	</div>
-	  </div>
-  </center>
   <script type="module">
     var LoginState = false;
     document.getElementById('LogoutBtn').style.display = 'none';
-    document.getElementById('StopBtn').style.display = 'none';
     //로그인 여부 확인
     function checkCookie(name) {
       let cookies = document.cookie.split(';');
@@ -159,13 +153,11 @@
         start_time,
       })
       .then(()=>{
-        alert("측정 시작")
+        console.log("start")
       })
       .catch((error)=>{
         alert("오류발생");
       });
-      document.getElementById('StopBtn').style.display = '';
-      document.getElementById('StartBtn').style.display = 'none';
     }
     StartBtn.addEventListener('click', StartCount);
     function StopCount() {
@@ -185,13 +177,11 @@
         stop_time,
       })
       .then(()=>{
-        alert("측정 종료")
+        console.log("stop")
       })
       .catch((error)=>{
         alert("오류발생");
       });
-      document.getElementById('StopBtn').style.display = 'none';
-      document.getElementById('StartBtn').style.display = '';
     }
     
     function Count() {
@@ -214,7 +204,9 @@
           } else {
             var time = (stop_hour-stop_hour)*60 + (stop_minute-start_minute);
           }
-          alert("총 공부 시간은 " + time + "분 입니다.");
+          var subject = document.getElementById('subject').value;
+          const p01 = document.getElementById('finish');
+          p01.innerHTML = subject + "를 공부한 시간은 " + time + "분 입니다.";
         });
       });
     }
