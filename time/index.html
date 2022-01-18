@@ -61,6 +61,7 @@
     <input class="start-button" id="StartBtn" type="button" value="START">
     <input class="stop-button" id="StopBtn" type="button" value="STOP">
     <p>버튼을 누르면 시간 측정이 시작됩니다.</p>
+    <p>정확한 시간 측정이 안될 수 있으니 재미로만 이용하세요.</p>
     <h1 class="finish" id="finish"></h1>
   </div>
   <script type="module">
@@ -89,7 +90,7 @@
     } else {
       alert("로그인 후 이용하세요")
       console.log('no_cookie');
-      location.href = "../index.html"
+      location.href = "../login/index.html"
     }
 
     // Import the functions you need from the SDKs you need
