@@ -158,6 +158,7 @@
       .catch((error)=>{
         alert("오류발생");
       });
+      document.getElementById('subject').style.display = 'none';
     }
     StartBtn.addEventListener('click', StartCount);
     function StopCount() {
@@ -206,9 +207,10 @@
           }
           var subject = document.getElementById('subject').value;
           const p01 = document.getElementById('finish');
-          p01.innerHTML = subject + "를 공부한 시간은 " + time + "분 입니다.";
+          p01.innerHTML = subject + "공부 :  " + time + "분 완료.";
         });
       });
+      document.getElementById('subject').style.display = '';
     }
     StopBtn.addEventListener('click', Count);
 
