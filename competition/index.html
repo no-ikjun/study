@@ -93,11 +93,13 @@
     
     if (LoginState === true) {
       let myStorage = window.localStorage;
-      let value = localStorage.getItem('이름');
+      let name = localStorage.getItem('이름');
       document.getElementById('LoginBtn').value = name;
       document.getElementById('LogoutBtn').style.display = '';
     } else {
+      alert("로그인 후 사용")
       console.log('no_session');
+      location.href = '../login/index.html'
     }
 
     // Import the functions you need from the SDKs you need
