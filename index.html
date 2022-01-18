@@ -61,27 +61,29 @@
     var LoginState = false;
     document.getElementById('LogoutBtn').style.display = 'none';
     //로그인 여부 확인
-    function checkCookie(name) {
-      let cookies = document.cookie.split(';');
-      let value = document.cookie.match('(^|;) ?' + name +'=([^;]*)(;|$)');
+    function checkSession() {
+      let myStorage = window.localStorage;
+      let value = localStorage.getItem('이름');
       if (value === null) {
         LoginState = false;
-      } else if (value[2] === ""){
+      } else if (value === ""){
         LoginState = false;
       } else {
         LoginState = true;
       }
       console.log(LoginState);
     }
-    checkCookie('이름');
+    checkSession();
     
     if (LoginState === true) {
-      var value = document.cookie.match('(^|;) ?' + '이름' + '=([^;]*)(;|$)');
-      var name = value[2];
-      document.getElementById('LoginBtn').value = name;
+      let myStorage = window.localStorage;
+      let name = localStorage.getItem('이름');
+      document.getElementById('Input').style.display = 'none';
+      const p01 = document.getElementById('welcome');
+      p01.innerHTML = name + " 로그인 완료";
       document.getElementById('LogoutBtn').style.display = '';
     } else {
-      console.log('no_cookie');
+      console.log('no_session');
     }
 
     // Import the functions you need from the SDKs you need
@@ -130,13 +132,9 @@
     LoginBtn.addEventListener('click', goToLogin);
 
     //로그아웃
-    function setCookie(name, value, exp) {
-      var date = new Date(); date.setTime(date.getTime() + exp*24*60*60*1000);
-      console.log(date);
-      document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
-    };
     function Logout() {
-      setCookie('이름', '', 2);
+      let myStorage = window.localStorage;
+      localStorage.clear();
       LoginState = false;
       location.reload();
     }
