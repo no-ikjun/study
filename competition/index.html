@@ -66,6 +66,7 @@
     <h1 id="lastday_time" class="last-time"></h1>
   </div>
   <div class="input">
+    <p>다른 친구들의 어제 공부 시간</p>
     <p id="kim" class="personal">김지우 : </p>
     <p id="nam" class="personal">남준우 : </p>
     <p id="min" class="personal">민정윤 : </p>
@@ -180,7 +181,7 @@
         var last_hour = parseInt(last_day/60);
         var last_minute = last_day%60;
         const p01 = document.getElementById('lastday_time');
-        p01.innerHTML = "어제는 " + last_hour + "시간 " + last_minute + "분 공부했습니다.";
+        p01.innerHTML = "당신은 어제 " + last_hour + "시간 " + last_minute + "분 공부했습니다.";
       });
     }
     ReadTime();
