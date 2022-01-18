@@ -83,4 +83,10 @@ body {
   position: relative;
   padding: 5px;
   border: none;
+} .button {
+  text-align: center;
+} .today {
+  font-size: 50px;
+  font-family: "maple";
+  font-weight: 100;
 }
