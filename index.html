@@ -77,10 +77,8 @@
     
     if (LoginState === true) {
       let myStorage = window.localStorage;
-      let name = localStorage.getItem('이름');
-      document.getElementById('Input').style.display = 'none';
-      const p01 = document.getElementById('welcome');
-      p01.innerHTML = name + " 로그인 완료";
+      let value = localStorage.getItem('이름');
+      document.getElementById('LoginBtn').value = name;
       document.getElementById('LogoutBtn').style.display = '';
     } else {
       console.log('no_session');
