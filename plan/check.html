@@ -199,7 +199,7 @@
       let name = localStorage.getItem('이름');
       get(child(dbref, "plan/"+choice_month+"/"+choice_date+"/"+name+"/"+count)).then((snapshot)=>{
         let time = snapshot.val().time;
-        let content = snapshot.val().contnet;
+        let content = snapshot.val().content;
         let checked = snapshot.val().checked;
         var input_time = document.getElementById(number+'_time');
         input_time.value = time;

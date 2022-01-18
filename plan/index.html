@@ -208,6 +208,7 @@
       set(ref(db, "plan/"+(month+1)+"/"+date+"/"+name+"/"+count),{
         "time": period,
         "content": study_content,
+        "checked": false,
       })
       .then(()=>{
         console.log(number+"_completed");
