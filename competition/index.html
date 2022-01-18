@@ -62,6 +62,9 @@
     <p><input class="input-time" id="Time" type="text" placeholder="공부시간(분) 입력"></p>
     <p><input class="submit" id="submitBtn" type="button" value="제출"></p>
   </div>
+  <div class="input">
+    <h1 id="lastday_time" class="last-time"></h1>
+  </div>
   <script type="module">
     var LoginState = false;
     document.getElementById('LogoutBtn').style.display = 'none';
@@ -167,10 +170,12 @@
       var name = value[2];
       get(child(dbref, "time/" + (month+1) + "/" + (date-1) + "/" + name + "/" + "time/")).then((snapshot)=>{
         var last_day = snapshot.val();
-        console.log(last_day);
-      })
+        var last_hour = parseInt(last_day/60);
+        var last_minute = last_day%60;
+      });
+      const p01 = document.getElementById('lastday_time');
+      p01.innerHTML = "어제는" + last_hour + "시간 " + last_minute + "분 공부했습니다." 
     }
-
     ReadTime();
   </script>
 </body>
