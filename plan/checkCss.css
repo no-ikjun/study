@@ -89,6 +89,18 @@ body {
   font-family: "maple";
   font-size: 40px;
   font-weight: 100;
+} .input-date {
+  font-size: 30px;
+  background-color: white;
+  border: 1px solid black;
+} .find-btn {
+  color: black;
+  background-color: rgb(200, 200, 200);
+  font-size: 30px;
+  font-family: "maple";
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
 } .plan {
   margin: 50px;
   font-size: 35px;
@@ -101,11 +113,7 @@ body {
   font-size: 30px;
 } .input-content::placeholder {
   font-size: 20px;
-} .submit-btn {
-  color: black;
-  background-color: rgb(173, 173, 173);
-  font-size: 30px;
-  font-family: "maple";
-  border: 1px solid black;
-  border-radius: 4px;
+} .plan-check {
+  width: 30px;
+  transform: scale(2.0);
 }

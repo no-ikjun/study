@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>공부해라</title>
   <link rel="shortcut icon" href="../image/shortcut.png">
-  <link rel="stylesheet" href="Css.css">
+  <link rel="stylesheet" href="checkCss.css">
 </head>
 <body>
   <a href="https://no-ikjun.github.io/study/">
@@ -23,8 +23,8 @@
     <div class="dropdown">
       <a class="dropbtn" data-toggle="dropdown" onclick="">계획</a>
       <div class="dropdown-content">
-        <a href="#">계획세우기</a>
-        <a href="check.html">점검하기</a>
+        <a href="index.html">계획세우기</a>
+        <a href="#">점검하기</a>
       </div>
     </div>
     <span class="blank"></span>
@@ -57,52 +57,59 @@
     </span>
   </div>
   <div class="button">
-    <h1 class="today" id="today"></h1>
-    최대 6개 입니다. 남으면 그냥 비워두세요.<br>
-    수정하려면 언제든지 다시 입력하면 됩니다.
+    <h1 class="today" id="today">원하는 날짜의 계획을 확인하고 점검하세요.</h1>
+    <p>
+      <input type="date" class="input-date" id="input_date">
+    </p>
+    <p>
+      <input type="button" class="find-btn" id="FindBtn" value="조회">
+    </p>
+  </div>
+  <div class="button" id="show">
     <p class="plan">
       1ST
-      <input type="time" class="input-time" id="first_start">
-      <input type="time" class="input-time" id="first_stop">
+      <input type="text" class="input-time" id="first_time">
       <input type="text" class="input-content" id="first_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="first_check">
     </p>
     <p class="plan">
       2ND
-      <input type="time" class="input-time" id="second_start">
-      <input type="time" class="input-time" id="second_stop">
+      <input type="text" class="input-time" id="second_time">
       <input type="text" class="input-content" id="second_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="second_check">
     </p>
     <p class="plan">
       3RD
-      <input type="time" class="input-time" id="third_start">
-      <input type="time" class="input-time" id="third_stop">
+      <input type="text" class="input-time" id="third_time">
       <input type="text" class="input-content" id="third_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="third_check">
     </p>
     <p class="plan">
       4TH
-      <input type="time" class="input-time" id="fourth_start">
-      <input type="time" class="input-time" id="fourth_stop">
+      <input type="text" class="input-time" id="fourth_time">
       <input type="text" class="input-content" id="fourth_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="fourth_check">
     </p>
     <p class="plan">
       5TH
-      <input type="time" class="input-time" id="fifth_start">
-      <input type="time" class="input-time" id="fifth_stop">
+      <input type="text" class="input-time" id="fifth_time">
       <input type="text" class="input-content" id="fifth_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="fifth_check">
     </p>
     <p class="plan">
       6TH
-      <input type="time" class="input-time" id="sixth_start">
-      <input type="time" class="input-time" id="sixth_stop">
+      <input type="text" class="input-time" id="sixth_time">
       <input type="text" class="input-content" id="sixth_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="sixth_check">
     </p>
-    <p class="plan">
-      <input type="button" class="submit-btn" id="submit_btn" value="제출">
+    <p>
+      <input type="button" class="find-btn" id="FinishBtn" value="점검완료">
     </p>
   </div>
-  <script type="module">
+  <script type="module" class="input-date">
     var LoginState = false;
     document.getElementById('LogoutBtn').style.display = 'none';
+    //document.getElementById('show').style.display = 'none';
     //로그인 여부 확인
     function checkSession() {
       let myStorage = window.localStorage;
@@ -124,9 +131,9 @@
       document.getElementById('LoginBtn').value = name;
       document.getElementById('LogoutBtn').style.display = '';
     } else {
-      alert("로그인 후 사용")
+      //alert("로그인 후 사용")
       console.log('no_session');
-      location.href = '../login/index.html'
+      //location.href = '../login/index.html'
     }
 
     // Import the functions you need from the SDKs you need
@@ -168,18 +175,8 @@
     }
     LogoutBtn.addEventListener('click', Logout)
 
-    //오늘 날짜 불러오기
-    function todayDate() {
-      var now = new Date();
-      var month = now.getMonth();
-      var date = now.getDate();
-      const p01 = document.getElementById('today');
-      p01.innerHTML = (month+1) + "월 " + date + "일의 계획을 세워보세요."
-    }
-    todayDate();
-
-    //계획 입력
-    function setPlan(number) {
+    //계획 불러오기
+    function getPlan(number) {
       if (number==='first'){
         var count = "1st";
       } else if (number==='second'){
@@ -193,38 +190,34 @@
       } else if (number==='sixth'){
         var count = "6th";
       }
-      var input_start = document.getElementById(number+'_start');
-      var start_time = input_start.value;
-      var input_stop = document.getElementById(number+'_stop');
-      var stop_time = input_stop.value;
-      var period = start_time + "~" + stop_time;
-      var input_content = document.getElementById(number+'_content');
-      var study_content = input_content.value;
+      const dbref = ref(db);
+      var date_choice = document.getElementById('input_date');
+      var dates = date_choice.value.split('-');
+      var choice_month = 1*dates[1];
+      var choice_date = 1*dates[2];
       let myStorage = window.localStorage;
       let name = localStorage.getItem('이름');
-      var now = new Date();
-      var month = now.getMonth();
-      var date = now.getDate();
-      set(ref(db, "plan/"+(month+1)+"/"+date+"/"+name+"/"+count),{
-        "time": period,
-        "content": study_content,
-      })
-      .then(()=>{
-        console.log(number+"_completed");
-      })
-      .catch((error)=>{
-        alert("오류발생");
+      get(child(dbref, "plan/"+choice_month+"/"+choice_date+"/"+name+"/"+count)).then((snapshot)=>{
+        let time = snapshot.val().time;
+        let content = snapshot.val().contnet;
+        let checked = snapshot.val().checked;
+        var input_time = document.getElementById(number+'_time');
+        input_time.value = time;
+        var input_content = document.getElementById(number+'_content');
+        input_content.value = content;
+        var input_content = document.getElementById(name+'_check');
+        input_content.checked = checked;
       });
     }
-    function submitPlan() {
-      setPlan('first');
-      setPlan('second');
-      setPlan('third');
-      setPlan('fourth');
-      setPlan('fifth');
-      setPlan('sixth');
+    function checkPlan() {
+      getPlan('first');
+      getPlan('second');
+      getPlan('third');
+      getPlan('fourth');
+      getPlan('fifth');
+      getPlan('sixth');
     }
-    submit_btn.addEventListener('click', submitPlan)
+    FindBtn.addEventListener('click', checkPlan);
   </script>
 </body>
 </html>
