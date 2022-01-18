@@ -55,7 +55,7 @@ body {
   cursor: pointer;
   text-shadow: none;
 } .blank {
-  padding-left: 7%;
+  padding-left: 5%;
   font-size: 30px;
 } .dropdown-btn {
   float: right;
