@@ -205,8 +205,8 @@
         input_time.value = time;
         var input_content = document.getElementById(number+'_content');
         input_content.value = content;
-        var input_content = document.getElementById(name+'_check');
-        input_content.checked = checked;
+        var input_checked = document.getElementById(name+'_check');
+        input_checked.checked = checked;
       });
     }
     function checkPlan() {
@@ -218,6 +218,55 @@
       getPlan('sixth');
     }
     FindBtn.addEventListener('click', checkPlan);
+
+    //계획 수정하기
+    function updatePlan(number) {
+      if (number==='first'){
+        var count = "1st";
+      } else if (number==='second'){
+        var count = "2nd";
+      } else if (number==='third'){
+        var count = "3rd";
+      } else if (number==='fourth'){
+        var count = "4th";
+      } else if (number==='fifth'){
+        var count = "5th";
+      } else if (number==='sixth'){
+        var count = "6th";
+      }
+      var input_time = document.getElementById(number+'_time');
+      var new_period = input_time.value;
+      var input_content = document.getElementById(number+'_content');
+      var new_content = input_content.value;
+      var input_checked = document.getElementById(name+'_check');
+      var new_checked = input_checked.checked;
+      let myStorage = window.localStorage;
+      let name = localStorage.getItem('이름');
+      var date_choice = document.getElementById('input_date');
+      var dates = date_choice.value.split('-');
+      var choice_month = 1*dates[1];
+      var choice_date = 1*dates[2];
+      set(ref(db, "plan/"+choice_month+"/"+choice_date+"/"+name+"/"+count),{
+        "time": period,
+        "content": study_content,
+        "checked": new_checked,
+      })
+      .then(()=>{
+        console.log(number+"_completed");
+      })
+      .catch((error)=>{
+        alert("오류발생");
+      });
+    }
+    function NewUpload() {
+      updatePlan('first');
+      updatePlan('second');
+      updatePlan('third');
+      updatePlan('fourth');
+      updatePlan('fifth');
+      updatePlan('sixth');
+    }
+    FinishBtn.addEventListener('click', NewUpload);
   </script>
 </body>
 </html>
