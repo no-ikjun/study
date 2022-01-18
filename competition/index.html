@@ -137,7 +137,7 @@
     //시간 측정 및 데이터 전송
     function SendTime() {
       var input_time = document.getElementById('Time');
-      var time = input_time.value;
+      var time = int(input_time.value);
       var now = new Date();
       var month = now.getMonth();
       var date = now.getDate();
