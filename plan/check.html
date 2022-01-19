@@ -265,6 +265,8 @@
       })
       .then(()=>{
         console.log(number+"_completed");
+        input_time.value = null;
+        input_content.value = null;
       })
       .catch((error)=>{
         alert("오류발생");
@@ -278,8 +280,11 @@
       updatePlan('fifth');
       updatePlan('sixth');
       alert('계획 점검 완료');
+      var input_date = document.getElementById('input_date');
+      input_date.value = null;
     }
     FinishBtn.addEventListener('click', NewUpload);
+
   </script>
 </body>
 </html>
