@@ -209,7 +209,8 @@
         var key = Object.keys(total)
         var len = 1*key.length;
         var total_info = document.getElementById('total_info');
-        total_info.innerHTML = "현재 총 점수는 "+total[len]['total']+"점 입니다.";
+        var real_total = total[len]['total'];
+        total_info.innerHTML = "현재 총 점수는 "+real_total+"점 입니다.";
       });
     }
 
