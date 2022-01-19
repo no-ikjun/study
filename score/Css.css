@@ -128,4 +128,16 @@ body {
 } .total-score {
   font-weight: 100;
   font-size: 40px;
+} .confirm-btn {
+  font-family: "maple";
+  font-size: 20px;
+  position: relative;
+  background-color: rgb(236, 236, 236);
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  padding: 5px;
+  margin-top: 15px;
 }

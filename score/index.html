@@ -78,11 +78,13 @@
       </table>
       <h2 id="total_info" class="total-score"></h2>
     </center>
+    <input type="button" class="confirm-btn" id="confirm_btn" value="확인">
   </div>
   <script type="module">
     var LoginState = false;
     document.getElementById('LogoutBtn').style.display = 'none';
     document.getElementById('name_info').style.display = 'none';
+    document.getElementById('confirm_btn').style.display = 'none';
     //로그인 여부 확인
     function checkSession() {
       let myStorage = window.localStorage;
@@ -214,8 +216,15 @@
     function runAll() {
       getScore();
       getTotal();
+      document.getElementById('confirm_btn').style.display = '';
     }
     FindBtn.addEventListener('click', runAll);
+
+    //확인 버튼 눌렀을 때
+    function recover() {
+      location.reload();
+    }
+    confirm_btn.addEventListener('click', recover);
   </script>
 </body>
 </html>
