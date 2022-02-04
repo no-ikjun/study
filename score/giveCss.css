@@ -90,45 +90,14 @@ body {
   font-weight: 100;
   font-family: "maple";
 } .input-name {
-  width: 200px;
+  width: 300px;
   font-size: 30px;
   border: 1px solid black;
   border-radius: 3px;
   text-align: center;
 } .input-name::placeholder {
   font-size: 20px;
-} .find-button {
-  font-family: "maple";
-  font-size: 20px;
-  position: relative;
-  background-color: rgb(236, 236, 236);
-  color: black;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  padding: 5px;
-  margin-top: 15px;
-} .name-info {
-  font-size: 40px;
-  font-weight: 100;
-  font-family: "maple";
-} .scoreTable {
-  text-align: center;
-} #scoreList > li:not(:last-child) > span {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 30px;
-} #scoreList {
-  text-align: left;
-  font-size: 30px;
-} .table {
-  vertical-align: middle;
-} .total-score {
-  font-weight: 100;
-  font-size: 40px;
-} .confirm-btn {
+} .give-button {
   font-family: "maple";
   font-size: 20px;
   position: relative;

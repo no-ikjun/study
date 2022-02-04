@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>공부해라</title>
+  <link rel="shortcut icon" href="../image/shortcut.png">
+  <link rel="stylesheet" href="Css.css">
+</head>
+<body>
+  <a href="https://no-ikjun.github.io/study/">
+    <img class="logo" width="100px" src="../image/logo.png" alt="로고">
+  </a>
+  <div class="bar">
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">공부하기</a>
+      <div class="dropdown-content">
+        <a href="../time/index.html">공부시간</a>
+        <a href="../competition/index.html">기록</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">계획</a>
+      <div class="dropdown-content">
+        <a href="../plan/index.html">계획세우기</a>
+        <a href="../plan/check.html">점검하기</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">바로가기</a>
+      <div class="dropdown-content">
+        <a href="https://classroom.google.com/u/0/c/Mjg4OTQyOTg3NjY3">미트주소</a>
+        <a href="https://classroom.google.com/u/">클래스룸</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">상벌점</a>
+      <div class="dropdown-content">
+        <a href="index.html">점수확인</a>
+        <a href="../score/give.html">정산</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">놀기</a>
+      <div class="dropdown-content">
+        <a href="https://www.youtube.com/">YouTube</a>
+        <a href="https://www.netflix.com/">NETFLIX</a>
+      </div>
+    </div>
+    <span class="dropdown-btn">
+      <input id="LoginBtn" class="login-btn" type="button" value="Login">
+      <input id="LogoutBtn" class="logout-btn" type="button" value="Logout">
+    </span>
+  </div>
+  <div class="button">
+    <h1 class="welcome">여기서 현재 점수를 확인해보세요.</h1>
+    <p id="input_info">조회할 사람의 이름을 입력하세요</p>
+    <input type="text" class="input-name" id="input_name" placeholder="이름입력"><br>
+    <input type="button" class="find-button" id="FindBtn" value="조회">
+  </div>
+  <div class="button">
+    <h2 class="name-info" id="name_info"></h2>
+    <center>
+      <table id="socreTable">
+        <tbody>
+          <tr class id="socreTr">
+            <td style="text-align: left;" colspan="2">
+              <ol id="scoreList">
+                <hr>
+              </ol>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h2 id="total_info" class="total-score"></h2>
+    </center>
+    <input type="button" class="confirm-btn" id="confirm_btn" value="확인">
+  </div>
+  <script type="module">
+    var LoginState = false;
+    document.getElementById('LogoutBtn').style.display = 'none';
+    document.getElementById('name_info').style.display = 'none';
+    document.getElementById('confirm_btn').style.display = 'none';
+    //로그인 여부 확인
+    function checkSession() {
+      let myStorage = window.localStorage;
+      let value = localStorage.getItem('이름');
+      if (value === null) {
+        LoginState = false;
+      } else if (value === ""){
+        LoginState = false;
+      } else {
+        LoginState = true;
+      }
+      console.log(LoginState);
+    }
+    checkSession();
+    
+    if (LoginState === true) {
+      let myStorage = window.localStorage;
+      let name = localStorage.getItem('이름');
+      document.getElementById('LoginBtn').value = name;
+      document.getElementById('LogoutBtn').style.display = '';
+    } else {
+      alert("로그인 후 사용")
+      console.log('no_session');
+      location.href = '../login/index.html'
+    }
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyChMwnnpUY3yf1jnGEvVql7bJ6Qs8-KTb8",
+      authDomain: "study-43c4b.firebaseapp.com",
+      databaseURL: "https://study-43c4b-default-rtdb.firebaseio.com",
+      projectId: "study-43c4b",
+      storageBucket: "study-43c4b.appspot.com",
+      messagingSenderId: "1081959961664",
+      appId: "1:1081959961664:web:004a4d6c86656db8417ba5",
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    import {getDatabase, ref, set, child, remove, get} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
+
+    const db = getDatabase();
+
+
+    function goToLogin(){
+      location.href='../login/index.html';
+    }
+    LoginBtn.addEventListener('click', goToLogin);
+
+    //로그아웃
+    function Logout() {
+      let myStorage = window.localStorage;
+      localStorage.clear();
+      LoginState = false;
+      location.reload();
+    }
+    LogoutBtn.addEventListener('click', Logout);
+
+    //상벌점 불러오기
+    function getScore() {
+      let count = 1;
+      const dbref = ref(db);
+      var name_input = document.getElementById('input_name');
+      var name = name_input.value;
+      var name_info = document.getElementById('name_info');
+      name_info.innerHTML = name+"님의 점수 내역입니다.";
+      name_info.style.display = '';
+      get(child(dbref, "member/"+name+"/"+"점수/")).then((snapshot)=>{
+        let total = snapshot.val();
+        var key = Object.keys(total)
+        var len = 1*key.length;
+        for (let i=0; i<len; i++) {
+          get(child(dbref, "member/"+name+"/"+"점수/"+(i+1))).then((snapshot)=>{
+            let reason = snapshot.val().reason;
+            var score = snapshot.val().score;
+            let targetTag_1 = document.getElementById('scoreList');
+            let addTag_1 = document.createElement('li');
+            addTag_1.setAttribute('id', 'li'+i);
+            targetTag_1.appendChild(addTag_1);
+            let targetTag_2 = document.getElementById('li'+i);
+            let addTag_2 = document.createElement('span');
+            addTag_2.setAttribute('id', 'span'+i);
+            targetTag_2.appendChild(addTag_2);
+            let targetTag_3 = document.getElementById('span'+i);
+            let addTag_3 = document.createElement('span');
+            addTag_3.setAttribute('style', 'padding-right: 100px;');
+            addTag_3.setAttribute('id', 'span'+(i+100))
+            addTag_3.innerHTML = reason;
+            let addTag_4 = document.createElement('span');
+            addTag_4.innerHTML = score;
+            if (score >0) {
+              addTag_4.setAttribute('style', 'color: green;');
+            } else if (score==0) {
+              addTag_4.setAttribute('style', 'color: black;');
+            } else {
+              addTag_4.setAttribute('style', 'color: red;');
+            }
+            let addTag_5 = document.createElement('hr');
+            targetTag_3.appendChild(addTag_3);
+            targetTag_3.appendChild(addTag_4);
+            targetTag_1.appendChild(addTag_5);
+          });
+        }
+      });
+      document.getElementById('input_info').style.display = 'none';
+      document.getElementById('input_name').style.display = 'none';
+      document.getElementById('FindBtn').style.display = 'none';
+    }
+
+    //전체 점수 가져오기
+    function getTotal() {
+      const dbref = ref(db);
+      var name_input = document.getElementById('input_name');
+      var name = name_input.value;
+      get(child(dbref, "member/"+name+"/"+"점수/")).then((snapshot)=>{
+        let total = snapshot.val();
+        var key = Object.keys(total)
+        var len = 1*key.length;
+        var total_info = document.getElementById('total_info');
+        var real_total = total[len]['total'];
+        total_info.innerHTML = "현재 총 점수는 "+real_total+"점 입니다.";
+      });
+    }
+
+    function runAll() {
+      getScore();
+      getTotal();
+      document.getElementById('confirm_btn').style.display = '';
+    }
+    FindBtn.addEventListener('click', runAll);
+
+    //확인 버튼 눌렀을 때
+    function recover() {
+      location.reload();
+    }
+    confirm_btn.addEventListener('click', recover);
+  </script>
+</body>
+</html>

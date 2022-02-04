@@ -85,59 +85,36 @@ body {
   border: none;
 } .button {
   text-align: center;
-} .welcome {
-  font-size: 50px;
-  font-weight: 100;
+} .today {
   font-family: "maple";
-} .input-name {
+  font-size: 40px;
+  font-weight: 100;
+} .input-date {
+  font-size: 30px;
+  background-color: white;
+  border: 1px solid black;
+} .find-btn {
+  color: black;
+  background-color: rgb(200, 200, 200);
+  font-size: 30px;
+  font-family: "maple";
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
+} .plan {
+  margin: 50px;
+  font-size: 35px;
+  font-family: "maple";
+} .input-time {
   width: 200px;
   font-size: 30px;
+  background-color: white;
   border: 1px solid black;
-  border-radius: 3px;
-  text-align: center;
-} .input-name::placeholder {
-  font-size: 20px;
-} .find-button {
-  font-family: "maple";
-  font-size: 20px;
-  position: relative;
-  background-color: rgb(236, 236, 236);
-  color: black;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  padding: 5px;
-  margin-top: 15px;
-} .name-info {
-  font-size: 40px;
-  font-weight: 100;
-  font-family: "maple";
-} .scoreTable {
-  text-align: center;
-} #scoreList > li:not(:last-child) > span {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+} .input-content {
   font-size: 30px;
-} #scoreList {
-  text-align: left;
-  font-size: 30px;
-} .table {
-  vertical-align: middle;
-} .total-score {
-  font-weight: 100;
-  font-size: 40px;
-} .confirm-btn {
-  font-family: "maple";
+} .input-content::placeholder {
   font-size: 20px;
-  position: relative;
-  background-color: rgb(236, 236, 236);
-  color: black;
-  border-radius: 5px;
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  padding: 5px;
-  margin-top: 15px;
-}
+} .plan-check {
+  width: 30px;
+  transform: scale(2.0);
+} 

@@ -55,7 +55,7 @@ body {
   cursor: pointer;
   text-shadow: none;
 } .blank {
-  padding-left: 7%;
+  padding-left: 5%;
   font-size: 30px;
 } .dropdown-btn {
   float: right;
@@ -95,8 +95,18 @@ body {
   font-family: "maple";
 } .input-time {
   font-size: 30px;
+  background-color: white;
+  border: 1px solid black;
 } .input-content {
   font-size: 30px;
 } .input-content::placeholder {
   font-size: 20px;
+} .submit-btn {
+  color: black;
+  background-color: rgb(200, 200, 200);
+  font-size: 30px;
+  font-family: "maple";
+  border: 1px solid black;
+  border-radius: 4px;
+  cursor: pointer;
 }

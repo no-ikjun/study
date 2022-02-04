@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>공부해라</title>
+  <link rel="shortcut icon" href="../image/shortcut.png">
+  <link rel="stylesheet" href="giveCss.css">
+</head>
+<body>
+  <a href="https://no-ikjun.github.io/study/">
+    <img class="logo" width="100px" src="../image/logo.png" alt="로고">
+  </a>
+  <div class="bar">
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">공부하기</a>
+      <div class="dropdown-content">
+        <a href="../time/index.html">공부시간</a>
+        <a href="../competition/index.html">기록</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">계획</a>
+      <div class="dropdown-content">
+        <a href="../plan/index.html">계획세우기</a>
+        <a href="../plan/check.html">점검하기</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">바로가기</a>
+      <div class="dropdown-content">
+        <a href="https://classroom.google.com/u/0/c/Mjg4OTQyOTg3NjY3">미트주소</a>
+        <a href="https://classroom.google.com/u/">클래스룸</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">상벌점</a>
+      <div class="dropdown-content">
+        <a href="index.html">점수확인</a>
+        <a href="give.html">정산</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">놀기</a>
+      <div class="dropdown-content">
+        <a href="https://www.youtube.com/">YouTube</a>
+        <a href="https://www.netflix.com/">NETFLIX</a>
+      </div>
+    </div>
+    <span class="dropdown-btn">
+      <input id="LoginBtn" class="login-btn" type="button" value="Login">
+      <input id="LogoutBtn" class="logout-btn" type="button" value="Logout">
+    </span>
+  </div>
+  <div class="button">
+    <h1 class="welcome">여기서 점수를 부여할 수 있습니다.</h1>
+    <p id="input_info">줄 사람의 이름을 입력하세요</p>
+    <input type="text" class="input-name" id="input_name" placeholder="이름입력"><br>
+    <p id="input_info">부과할 점수를 입력하세요</p>
+    <input type="text" class="input-name" id="input_score" placeholder="예) -1"><br>
+    <p id="input_info">날짜와 사유를 입력하세요.</p>
+    <input type="text" class="input-name" id="input_reason" placeholder="예) 1/20 아침 지각"><br>
+    <p id="input_info">총 점수를 입력하세요. (직접 계산해야함...)</p>
+    <input type="text" class="input-name" id="input_total" placeholder="예) -5"><br>
+    <input type="button" class="give-button" id="GiveBtn" value="확인">
+  </div>
+  <center>
+    <p id="kim">김지우 : </p>
+    <p id="nam">남준우 : </p>
+    <p id="min">민정윤 : </p>
+    <p id="ji">지민우 : </p>
+    <p id="choi">최익준 : </p>
+  <center>
+
+  <script type="module">
+    var LoginState = false;
+    document.getElementById('LogoutBtn').style.display = 'none';
+
+    //로그인 여부 확인
+    function checkSession() {
+      let myStorage = window.localStorage;
+      let value = localStorage.getItem('이름');
+      if (value === null){
+        LoginState = false;
+      } else if (value === ""){
+        LoginState = false;
+      } else if (value === "민정윤") {
+        LoginState = true;
+      } else {
+        LoginState = 'other';
+      }
+      console.log(LoginState);
+    }
+    checkSession();
+    
+    if (LoginState === true) {
+      let myStorage = window.localStorage;
+      let name = localStorage.getItem('이름');
+      document.getElementById('LoginBtn').value = name;
+      document.getElementById('LogoutBtn').style.display = '';
+    } else if (LoginState==='other') {
+      alert('민정윤만 접근할 수 있는 페이지');
+      location.href = '../index.html';
+    } else {
+      alert("로그인 후 사용")
+      console.log('no_session');
+      location.href = '../login/index.html'
+    }
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyChMwnnpUY3yf1jnGEvVql7bJ6Qs8-KTb8",
+      authDomain: "study-43c4b.firebaseapp.com",
+      databaseURL: "https://study-43c4b-default-rtdb.firebaseio.com",
+      projectId: "study-43c4b",
+      storageBucket: "study-43c4b.appspot.com",
+      messagingSenderId: "1081959961664",
+      appId: "1:1081959961664:web:004a4d6c86656db8417ba5",
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    import {getDatabase, ref, set, child, remove, get} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
+
+    const db = getDatabase();
+
+
+    function goToLogin(){
+      location.href='../login/index.html';
+    }
+    LoginBtn.addEventListener('click', goToLogin);
+
+    //로그아웃
+    function Logout() {
+      let myStorage = window.localStorage;
+      localStorage.clear();
+      LoginState = false;
+      location.reload();
+    }
+    LogoutBtn.addEventListener('click', Logout);
+
+    //점수 부여하기
+    async function giveScore() {
+      var input_name = document.getElementById('input_name');
+      var input_score = document.getElementById('input_score');
+      var input_reason = document.getElementById('input_reason');
+      var input_total = document.getElementById('input_total');
+      var name = input_name.value;
+      var new_score = input_score.value;
+      var new_reason = input_reason.value;
+      var new_total = input_total.value;
+      if (name === "") {
+        alert('모든 값 입력');
+      } else if (new_score === "") {
+        alert('모든 값 입력');
+      } else if (new_reason === "") {
+        alert('모든 값 입력');
+      } else if (new_total === "") {
+        alert('모든 값 입력');
+      } else {
+        const dbref = ref(db);
+        get(child(dbref, "member/"+name+"/"+"점수/")).then((snapshot)=>{
+          let all = snapshot.val();
+          if (all === null) {
+            var count = 1
+          } else {
+            var key = Object.keys(all);
+            var last = 1*key.slice(-1)[0];
+            var count = last + 1;
+          }
+          set(ref(db, "member/"+name+"/"+"점수/"+count),{
+            reason: new_reason,
+            score: new_score,
+            total: new_total,
+          })
+          .then(()=>{
+            alert('전송 완료');
+            location.reload();
+          })
+          .catch((error)=>{
+            alert('오류 발생');
+          })
+        });
+      }
+    }
+    GiveBtn.addEventListener('click', giveScore);
+
+    //모든 사용자의 점수 확인하기
+    function ReadAll() {
+      const dbref = ref(db);
+      get(child(dbref, "member/김지우/점수/")).then((snapshot)=>{
+        let all = snapshot.val();
+        var key = Object.keys(all);
+        var last = 1*key.slice(-1)[0];
+        var count = last;
+        get(child(dbref, "member/김지우/점수/"+count+"/"+"total/")).then((snapshot)=>{
+          let total_kim = snapshot.val();
+          var kim = document.getElementById('kim');
+          kim.innerText += " " + total_kim + "점";
+        })
+      })
+      get(child(dbref, "member/남준우/점수/")).then((snapshot)=>{
+        let all = snapshot.val();
+        var key = Object.keys(all);
+        var last = 1*key.slice(-1)[0];
+        var count = last;
+        get(child(dbref, "member/남준우/점수/"+count+"/"+"total/")).then((snapshot)=>{
+          let total_nam = snapshot.val();
+          var nam = document.getElementById('nam');
+          nam.innerText += " " + total_nam + "점";
+        })
+      })
+      get(child(dbref, "member/민정윤/점수/")).then((snapshot)=>{
+        let all = snapshot.val();
+        var key = Object.keys(all);
+        var last = 1*key.slice(-1)[0];
+        var count = last;
+        get(child(dbref, "member/민정윤/점수/"+count+"/"+"total/")).then((snapshot)=>{
+          let total_min = snapshot.val();
+          var min = document.getElementById('min');
+          min.innerText += " " + total_min + "점";
+        })
+      })
+      get(child(dbref, "member/지민우/점수/")).then((snapshot)=>{
+        let all = snapshot.val();
+        var key = Object.keys(all);
+        var last = 1*key.slice(-1)[0];
+        var count = last;
+        get(child(dbref, "member/지민우/점수/"+count+"/"+"total/")).then((snapshot)=>{
+          let total_ji = snapshot.val();
+          var ji = document.getElementById('ji');
+          ji.innerText += " " + total_ji + "점";
+        })
+      })
+      get(child(dbref, "member/최익준/점수/")).then((snapshot)=>{
+        let all = snapshot.val();
+        var key = Object.keys(all);
+        var last = 1*key.slice(-1)[0];
+        var count = last;
+        get(child(dbref, "member/최익준/점수/"+count+"/"+"total/")).then((snapshot)=>{
+          let total_choi = snapshot.val();
+          var choi = document.getElementById('choi');
+          choi.innerText += " " + total_choi + "점";
+        })
+      })
+    }
+    ReadAll();
+  </script>
+</body>
+</html>

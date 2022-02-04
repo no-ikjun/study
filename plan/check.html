@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>공부해라</title>
+  <link rel="shortcut icon" href="../image/shortcut.png">
+  <link rel="stylesheet" href="checkCss.css">
+</head>
+<body>
+  <a href="https://no-ikjun.github.io/study/">
+    <img class="logo" width="100px" src="../image/logo.png" alt="로고">
+  </a>
+  <div class="bar">
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">공부하기</a>
+      <div class="dropdown-content">
+        <a href="../time/index.html">공부시간</a>
+        <a href="../competition/index.html">기록</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">계획</a>
+      <div class="dropdown-content">
+        <a href="index.html">계획세우기</a>
+        <a href="#">점검하기</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">바로가기</a>
+      <div class="dropdown-content">
+        <a href="https://classroom.google.com/u/0/c/Mjg4OTQyOTg3NjY3">미트주소</a>
+        <a href="https://classroom.google.com/u/">클래스룸</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">상벌점</a>
+      <div class="dropdown-content">
+        <a href="../score/index.html">점수확인</a>
+        <a href="../score/give.html">정산</a>
+      </div>
+    </div>
+    <span class="blank"></span>
+    <div class="dropdown">
+      <a class="dropbtn" data-toggle="dropdown" onclick="">놀기</a>
+      <div class="dropdown-content">
+        <a href="https://www.youtube.com/">YouTube</a>
+        <a href="https://www.netflix.com/">NETFLIX</a>
+      </div>
+    </div>
+    <span class="dropdown-btn">
+      <input id="LoginBtn" class="login-btn" type="button" value="Login">
+      <input id="LogoutBtn" class="logout-btn" type="button" value="Logout">
+    </span>
+  </div>
+  <div class="button">
+    <h1 class="today" id="today">원하는 날짜의 계획을 확인하고 점검하세요.</h1>
+    이 페이지에서도 계획을 수정할 수 있습니다.<br>
+    모든 수정사항은 '점검완료'버튼을 누르면 저장됩니다.
+    <p>
+      <input type="date" class="input-date" id="input_date">
+    </p>
+    <p>
+      <input type="button" class="find-btn" id="FindBtn" value="조회">
+    </p>
+  </div>
+  <div class="button" id="show">
+    <p class="plan">
+      1ST
+      <input type="text" class="input-time" id="first_time">
+      <input type="text" class="input-content" id="first_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="first_check">
+    </p>
+    <p class="plan">
+      2ND
+      <input type="text" class="input-time" id="second_time">
+      <input type="text" class="input-content" id="second_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="second_check">
+    </p>
+    <p class="plan">
+      3RD
+      <input type="text" class="input-time" id="third_time">
+      <input type="text" class="input-content" id="third_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="third_check">
+    </p>
+    <p class="plan">
+      4TH
+      <input type="text" class="input-time" id="fourth_time">
+      <input type="text" class="input-content" id="fourth_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="fourth_check">
+    </p>
+    <p class="plan">
+      5TH
+      <input type="text" class="input-time" id="fifth_time">
+      <input type="text" class="input-content" id="fifth_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="fifth_check">
+    </p>
+    <p class="plan">
+      6TH
+      <input type="text" class="input-time" id="sixth_time">
+      <input type="text" class="input-content" id="sixth_content" placeholder="공부내용">
+      <input type="checkbox" class="plan-check" id="sixth_check">
+    </p>
+    <p>
+      <input type="button" class="find-btn" id="FinishBtn" value="점검완료">
+    </p>
+  </div>
+  <script type="module" class="input-date">
+    var LoginState = false;
+    document.getElementById('LogoutBtn').style.display = 'none';
+    //document.getElementById('show').style.display = 'none';
+    //로그인 여부 확인
+    function checkSession() {
+      let myStorage = window.localStorage;
+      let value = localStorage.getItem('이름');
+      if (value === null) {
+        LoginState = false;
+      } else if (value === ""){
+        LoginState = false;
+      } else {
+        LoginState = true;
+      }
+      console.log(LoginState);
+    }
+    checkSession();
+    
+    if (LoginState === true) {
+      let myStorage = window.localStorage;
+      let name = localStorage.getItem('이름');
+      document.getElementById('LoginBtn').value = name;
+      document.getElementById('LogoutBtn').style.display = '';
+    } else {
+      alert("로그인 후 사용")
+      console.log('no_session');
+      location.href = '../login/index.html'
+    }
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.3/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyChMwnnpUY3yf1jnGEvVql7bJ6Qs8-KTb8",
+      authDomain: "study-43c4b.firebaseapp.com",
+      databaseURL: "https://study-43c4b-default-rtdb.firebaseio.com",
+      projectId: "study-43c4b",
+      storageBucket: "study-43c4b.appspot.com",
+      messagingSenderId: "1081959961664",
+      appId: "1:1081959961664:web:004a4d6c86656db8417ba5",
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    import {getDatabase, ref, set, child, remove, get} from "https://www.gstatic.com/firebasejs/9.6.3/firebase-database.js";
+
+    const db = getDatabase();
+
+
+    function goToLogin(){
+      location.href='../login/index.html';
+    }
+    LoginBtn.addEventListener('click', goToLogin);
+
+    //로그아웃
+    function Logout() {
+      let myStorage = window.localStorage;
+      localStorage.clear();
+      LoginState = false;
+      location.reload();
+    }
+    LogoutBtn.addEventListener('click', Logout)
+
+    //계획 불러오기
+    function getPlan(number) {
+      if (number==='first'){
+        var count = "1st";
+      } else if (number==='second'){
+        var count = "2nd";
+      } else if (number==='third'){
+        var count = "3rd";
+      } else if (number==='fourth'){
+        var count = "4th";
+      } else if (number==='fifth'){
+        var count = "5th";
+      } else if (number==='sixth'){
+        var count = "6th";
+      }
+      const dbref = ref(db);
+      var date_choice = document.getElementById('input_date');
+      var dates = date_choice.value.split('-');
+      var choice_month = 1*dates[1];
+      var choice_date = 1*dates[2];
+      let myStorage = window.localStorage;
+      let name = localStorage.getItem('이름');
+      get(child(dbref, "plan/"+choice_month+"/"+choice_date+"/"+name+"/"+count)).then((snapshot)=>{
+        let time = snapshot.val().time;
+        let content = snapshot.val().content;
+        let checked = snapshot.val().checked;
+        var input_time = document.getElementById(number+'_time');
+        input_time.value = time;
+        var input_content = document.getElementById(number+'_content');
+        input_content.value = content;
+        if (checked === "no") {
+          var input_checked = document.getElementById(number+'_check');
+          input_checked.checked = false;
+        } else {
+          var input_checked = document.getElementById(number+'_check');
+          input_checked.checked = true;
+        }
+      });
+    }
+    function checkPlan() {
+      getPlan('first');
+      getPlan('second');
+      getPlan('third');
+      getPlan('fourth');
+      getPlan('fifth');
+      getPlan('sixth');
+    }
+    FindBtn.addEventListener('click', checkPlan);
+
+    //계획 수정하기
+    function updatePlan(number) {
+      if (number==='first'){
+        var count = "1st";
+      } else if (number==='second'){
+        var count = "2nd";
+      } else if (number==='third'){
+        var count = "3rd";
+      } else if (number==='fourth'){
+        var count = "4th";
+      } else if (number==='fifth'){
+        var count = "5th";
+      } else if (number==='sixth'){
+        var count = "6th";
+      }
+      var input_time = document.getElementById(number+'_time');
+      var new_period = input_time.value;
+      var input_content = document.getElementById(number+'_content');
+      var new_content = input_content.value;
+      var input_checked = document.getElementById(number+'_check');
+      var now_checked = input_checked.checked;
+      if (now_checked === true) {
+        var new_checked = "yes";
+      } else {
+        var new_checked = "no";
+      }
+      let myStorage = window.localStorage;
+      let name = localStorage.getItem('이름');
+      var date_choice = document.getElementById('input_date');
+      var dates = date_choice.value.split('-');
+      var choice_month = 1*dates[1];
+      var choice_date = 1*dates[2];
+      set(ref(db, "plan/"+choice_month+"/"+choice_date+"/"+name+"/"+count),{
+        "time": new_period,
+        "content": new_content,
+        "checked": new_checked,
+      })
+      .then(()=>{
+        console.log(number+"_completed");
+        input_time.value = null;
+        input_content.value = null;
+      })
+      .catch((error)=>{
+        alert("오류발생");
+      });
+    }
+    function NewUpload() {
+      updatePlan('first');
+      updatePlan('second');
+      updatePlan('third');
+      updatePlan('fourth');
+      updatePlan('fifth');
+      updatePlan('sixth');
+      alert('계획 점검 완료');
+      var input_date = document.getElementById('input_date');
+      input_date.value = null;
+    }
+    FinishBtn.addEventListener('click', NewUpload);
+
+  </script>
+</body>
+</html>

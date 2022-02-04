@@ -55,7 +55,7 @@ body {
   cursor: pointer;
   text-shadow: none;
 } .blank {
-  padding-left: 7%;
+  padding-left: 5%;
   font-size: 30px;
 } .dropdown-btn {
   float: right;
@@ -83,4 +83,10 @@ body {
   position: relative;
   padding: 5px;
   border: none;
+} .button {
+  text-align: center;
+} .today {
+  font-size: 50px;
+  font-family: "maple";
+  font-weight: 100;
 }
