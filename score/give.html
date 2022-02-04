@@ -68,6 +68,14 @@
     <input type="text" class="input-name" id="input_total" placeholder="예) -5"><br>
     <input type="button" class="give-button" id="GiveBtn" value="확인">
   </div>
+  <center>
+    <p id="kim">김지우 : </p>
+    <p id="nam">남준우 : </p>
+    <p id="min">민정윤 : </p>
+    <p id="ji">지민우 : </p>
+    <p id="choi">최익준 : </p>
+  <center>
+
   <script type="module">
     var LoginState = false;
     document.getElementById('LogoutBtn').style.display = 'none';
@@ -187,6 +195,67 @@
       }
     }
     GiveBtn.addEventListener('click', giveScore);
+
+    //모든 사용자의 점수 확인하기
+    function ReadAll() {
+      const dbref = ref(db);
+      get(child(dbref, "member/김지우/점수/")).then((snapshot)=>{
+        let all = snapshot.val();
+        var key = Object.keys(all);
+        var last = 1*key.slice(-1)[0];
+        var count = last;
+        get(child(dbref, "member/김지우/점수/"+count+"/"+"total/")).then((snapshot)=>{
+          let total_kim = snapshot.val();
+          var kim = document.getElementById('kim');
+          kim.innerText += " " + total_kim + "점";
+        })
+      })
+      get(child(dbref, "member/남준우/점수/")).then((snapshot)=>{
+        let all = snapshot.val();
+        var key = Object.keys(all);
+        var last = 1*key.slice(-1)[0];
+        var count = last;
+        get(child(dbref, "member/남준우/점수/"+count+"/"+"total/")).then((snapshot)=>{
+          let total_nam = snapshot.val();
+          var nam = document.getElementById('nam');
+          nam.innerText += " " + total_nam + "점";
+        })
+      })
+      get(child(dbref, "member/민정윤/점수/")).then((snapshot)=>{
+        let all = snapshot.val();
+        var key = Object.keys(all);
+        var last = 1*key.slice(-1)[0];
+        var count = last;
+        get(child(dbref, "member/민정윤/점수/"+count+"/"+"total/")).then((snapshot)=>{
+          let total_min = snapshot.val();
+          var min = document.getElementById('min');
+          min.innerText += " " + total_min + "점";
+        })
+      })
+      get(child(dbref, "member/지민우/점수/")).then((snapshot)=>{
+        let all = snapshot.val();
+        var key = Object.keys(all);
+        var last = 1*key.slice(-1)[0];
+        var count = last;
+        get(child(dbref, "member/지민우/점수/"+count+"/"+"total/")).then((snapshot)=>{
+          let total_ji = snapshot.val();
+          var ji = document.getElementById('ji');
+          ji.innerText += " " + total_ji + "점";
+        })
+      })
+      get(child(dbref, "member/최익준/점수/")).then((snapshot)=>{
+        let all = snapshot.val();
+        var key = Object.keys(all);
+        var last = 1*key.slice(-1)[0];
+        var count = last;
+        get(child(dbref, "member/최익준/점수/"+count+"/"+"total/")).then((snapshot)=>{
+          let total_choi = snapshot.val();
+          var choi = document.getElementById('choi');
+          choi.innerText += " " + total_choi + "점";
+        })
+      })
+    }
+    ReadAll();
   </script>
 </body>
 </html>

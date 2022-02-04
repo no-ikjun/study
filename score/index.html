@@ -182,8 +182,10 @@
             addTag_3.innerHTML = reason;
             let addTag_4 = document.createElement('span');
             addTag_4.innerHTML = score;
-            if (score >=0) {
+            if (score >0) {
               addTag_4.setAttribute('style', 'color: green;');
+            } else if (score==0) {
+              addTag_4.setAttribute('style', 'color: black;');
             } else {
               addTag_4.setAttribute('style', 'color: red;');
             }
